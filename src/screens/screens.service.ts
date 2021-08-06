@@ -4,12 +4,16 @@ import { Model } from 'mongoose';
 import { CreateScreenDto } from './dto/createScreen.dto';
 import { UpdateScreenDto } from './dto/updateScreen.dto';
 import { Screen, ScreenDocument } from './screens.schema';
+import { JwtService } from '@nestjs/jwt';
+import { TokenDto } from '../middlewares/dto/token.dto';
+import { RequestDto } from '../middlewares/dto/request.dto';
 
 @Injectable()
 export class ScreensService {
   constructor(
     @InjectModel('Screen')
     private screenModel: Model<ScreenDocument>,
+    private jwtService: JwtService,
   ) {}
 
   //get all screen
@@ -38,12 +42,16 @@ export class ScreensService {
   }
 
   //create new screen
-  async createScreen(createScreenDto: CreateScreenDto): Promise<Screen> {
+  async createScreen(body: CreateScreenDto, req: RequestDto): Promise<Screen> {
     try {
-      createScreenDto.isDelete = 0;
-      createScreenDto.createAt = new Date();
-      createScreenDto.updateAt = new Date();
-      return await this.screenModel.create(createScreenDto);
+      //get token in request.header
+      const token = req.header('token');
+      const payload: TokenDto = await this.jwtService.verifyAsync(token); //verify token to get userId
+      body.isDelete = 0;
+      body.createAt = new Date();
+      body.updateAt = new Date();
+      body.createBy = payload.userId;
+      return await this.screenModel.create(body);
     } catch (error) {
       throw error;
     }
@@ -53,8 +61,12 @@ export class ScreensService {
   async updateScreen(
     id: string,
     updateScreenDto: UpdateScreenDto,
+    req: RequestDto,
   ): Promise<any> {
     try {
+      //get token in request.header
+      const token = req.header('token');
+      const payload: TokenDto = await this.jwtService.verifyAsync(token); //verify token to get userId
       const Temp = await this.screenModel.findOne({ _id: id, isDelete: 0 });
       if (!Temp) {
         return {
@@ -62,6 +74,7 @@ export class ScreensService {
         };
       }
       updateScreenDto.updateAt = new Date();
+      updateScreenDto.updateBy = payload.userId;
       await this.screenModel.updateOne({ _id: id }, updateScreenDto);
       return {
         message: 'Update success',

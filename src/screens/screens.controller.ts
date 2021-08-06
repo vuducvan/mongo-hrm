@@ -6,7 +6,9 @@ import {
   Patch,
   Post,
   Query,
+  Req,
 } from '@nestjs/common';
+import { RequestDto } from '../middlewares/dto/request.dto';
 import { CreateScreenDto } from './dto/createScreen.dto';
 import { UpdateScreenDto } from './dto/updateScreen.dto';
 import { ScreensService } from './screens.service';
@@ -31,9 +33,9 @@ export class ScreensController {
   }
 
   //create new Screen
-  @Post('/create')
-  insertScreen(@Body() body: CreateScreenDto) {
-    return this.screenService.createScreen(body);
+  @Post()
+  insertScreen(@Body() body: CreateScreenDto, @Req() req: RequestDto) {
+    return this.screenService.createScreen(body, req);
   }
 
   //update screen by id
@@ -41,8 +43,9 @@ export class ScreensController {
   updateScreen(
     @Param('id') id: string,
     @Body() body: UpdateScreenDto,
+    @Req() req: RequestDto,
   ): Promise<any> {
-    return this.screenService.updateScreen(id, body);
+    return this.screenService.updateScreen(id, body, req);
   }
 
   //delete screen by id

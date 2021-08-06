@@ -5,6 +5,7 @@ import { ScreensModule } from './screens/screens.module';
 import { FormsModule } from './forms/forms.module';
 import { AccountsModule } from './accounts/accounts.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { MongooseModule } from '@nestjs/mongoose';
     FormsModule,
     AccountsModule,
     MongooseModule.forRoot('mongodb://localhost/hrm-project'),
+    AuthModule,
   ],
 })
 export class AppModule {}
