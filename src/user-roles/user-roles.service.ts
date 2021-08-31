@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { CreateUserroleDto } from './dto/createUserrole.dto';
-import { UpdateUserroleDto } from './dto/updateUserrole.dto';
-import { Userrole, UserroleDocument } from './userroles.schema';
+import { CreateUserroleDto } from './dto/createUser-role.dto';
+import { UpdateUserroleDto } from './dto/updateUser-role.dto';
+import { Userrole, UserroleDocument } from './user-roles.schema';
 import { JwtService } from '@nestjs/jwt';
 import { TokenDto } from '../middlewares/dto/token.dto';
 import { RequestDto } from '../middlewares/dto/request.dto';

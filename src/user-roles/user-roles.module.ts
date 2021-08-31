@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { UserrolesController } from './userroles.controller';
-import { UserrolesService } from './userroles.service';
+import { UserrolesController } from './user-roles.controller';
+import { UserrolesService } from './user-roles.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UserroleSchema } from './userroles.schema';
+import { UserroleSchema } from './user-roles.schema';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConst } from '../const/auth.const';
 @Module({

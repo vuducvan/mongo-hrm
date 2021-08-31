@@ -21,7 +21,7 @@ import {
   CheckCanSubmit,
   CheckCloseForm,
 } from '../middlewares/checkRole';
-import { UserroleSchema } from '../userroles/userroles.schema';
+import { UserroleSchema } from '../user-roles/user-roles.schema';
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: 'Form', schema: FormSchema }]),

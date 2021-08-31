@@ -8,9 +8,9 @@ import {
   Query,
   Req,
 } from '@nestjs/common';
-import { UserrolesService } from './userroles.service';
-import { CreateUserroleDto } from './dto/createUserrole.dto';
-import { UpdateUserroleDto } from './dto/updateUserrole.dto';
+import { UserrolesService } from './user-roles.service';
+import { CreateUserroleDto } from './dto/createUser-role.dto';
+import { UpdateUserroleDto } from './dto/updateUser-role.dto';
 import { RequestDto } from '../middlewares/dto/request.dto';
 
 @Controller('api/userroles')
